@@ -52,7 +52,7 @@ const Hanzul = ({ hanzulObj, isOwner }) => {
       <>
     <h4>{hanzulObj.text}</h4>
     {isOwner && (
-      <div className="nweet__actions">
+      <div className="hanzul__actions">
         <span onClick={onDeleteClick}>
           삭제
         </span>
