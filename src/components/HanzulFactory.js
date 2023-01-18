@@ -8,6 +8,9 @@ const HanzulFactory = ({ userObj }) => {
   const [hanzul, setHanzul] = useState("");
   const onSubmit = async (event) => {
     event.preventDefault();
+    if (hanzul === "") {
+      return;
+    }
     await dbService.collection("hanzuls").add({
       text: hanzul,
       createdAt: Date.now(),
@@ -25,17 +28,20 @@ const HanzulFactory = ({ userObj }) => {
 
 return (
 
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="factoryForm">
+      <div className="factoryInput__container">
       <input
+      className="factoryInput__input"
         value={hanzul}
         onChange={onChange}
         type="text"
         placeholder="글을 입력하세요."
         maxLength={120}
       />
-      <input type="submit" value="입력" />
-    </form>                                               
-          );
-        };
+      <input type="submit" value="입력" className="factoryInput__arrow" />
+      </div>
+    </form>
+    );
+  };
 
 export default HanzulFactory;

@@ -8,7 +8,10 @@ const Home = ({ userObj }) => {
   const [hanzuls, setHanzuls] = useState([]);
 
   useEffect(() => {
-    dbService.collection("hanzuls").onSnapshot((snapshot) => {
+    dbService
+    .collection("hanzuls")
+    .orderBy("createdAt", "desc")
+    .onSnapshot((snapshot) => {
       const hanzulArray = snapshot.docs.map((document) => ({
         id: document.id,
         ...document.data(),
@@ -19,9 +22,9 @@ const Home = ({ userObj }) => {
 
 
   return (
-    <>
+    <div className="container">
       <HanzulFactory userObj={userObj} />
-      <div>
+      <div style={{ marginTop: 30 }}>
         {hanzuls.map((hanzul) => (
           <Hanzul 
           key={hanzul.id} 
@@ -30,7 +33,7 @@ const Home = ({ userObj }) => {
           />
             ))}
             </div>
-            </>
+            </div>
             );
           };
 

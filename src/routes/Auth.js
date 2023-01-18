@@ -7,9 +7,13 @@ const Auth = () => {
 
 
   return (
-    <div>
+    <div className="authContainer">
+      <span style={{ fontSize: 30 }}>
+        오늘의 한줄
+      </span>
+
       <AuthForm />
-      <div>
+      <div className="authBtns">
 
       </div>
     </div>

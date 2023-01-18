@@ -30,23 +30,36 @@ const Hanzul = ({ hanzulObj, isOwner }) => {
   };
 
   return (
-  <div>
+  <div className="hanzul">
     {editing ? (
       <>
-      <form onSubmit={onSubmit}>
-        <input onChange={onChange} value={newHanzul} required />
-        <input type="submit" value="업데이트" />
+      <form onSubmit={onSubmit} className="container hanzulEdit">
+        <input 
+        onChange={onChange} 
+        value={newHanzul} 
+        required
+        placeholder="한줄을 편집하세요."
+        autoFocus
+        className="formInput"
+        />
+        <input type="submit" value="업데이트" className="formBtn" />
         </form>
-        <button onClick={toggleEditing}>취소</button>
+        <button onClick={toggleEditing} className="formBtn cancelBtn">
+          취소
+          </button>
         </>
     ) : (
       <>
     <h4>{hanzulObj.text}</h4>
     {isOwner && (
-      <>  
-    <button onClick={onDeleteClick}>삭제</button>
-    <button onClick={toggleEditing}>수정</button>
-    </>
+      <div className="nweet__actions">
+        <span onClick={onDeleteClick}>
+          삭제
+        </span>
+        <span onClick={toggleEditing}>
+          수정
+        </span>
+      </div>
     )}
     </>
     )}
