@@ -6,7 +6,7 @@ const Navigation = ({ userObj }) => {
   <nav>
     <ul style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
       <li>
-        <Link to="/" style={{ marginRight: 10 }}>홈</Link>
+        <Link to="/" style={{ marginRight: 10, fontSize: 30 }}>홈</Link>
       </li>
       <li>
         <Link 
