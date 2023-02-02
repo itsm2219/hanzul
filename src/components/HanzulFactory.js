@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { dbService } from "fbase";
 import Hanzul from "components/Hanzul";
+import MySearchBar from 'components/MySearchBar';
+
 
 
 
@@ -10,7 +12,8 @@ const HanzulFactory = ({ userObj }) => {
   const [hanzuls, setHanzuls] = useState([]);
   const [hashtags, setHashtags] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [search, setSearch] = useState("");
+  const [searchItems, setSearchItems] = useState([]);
+
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -40,9 +43,6 @@ const HanzulFactory = ({ userObj }) => {
 
   const filteredHanzuls = hanzuls.filter(hanzul => hanzul.hashtags && hanzul.hashtags.includes(searchTerm));
 
-  const filterHanzul = hanzuls.filter((p) => {
-    return p.hanzul.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-})
 
 return (
   <div>
@@ -55,21 +55,7 @@ return (
       ))}
     </div>
 
-
-    <form onSubmit={e => onSearch(e)}>
-            <input type="text" value={search} onChange={onChange} placeholder="한줄 검색"/>
-            <button type="submit">검색</button>
-    </form>
-    <div>
-                {filterHanzul.map(hanzul =>
-                <Hanzul
-                key={hanzul.id}
-                hanzulObj={hanzul} 
-                isOwner={hanzul.creatorId === userObj.uid}
-                text={hanzul}
-                />
-               )}
-    </div>
+    <MySearchBar searchItems={searchItems} />
 
     <form onSubmit={onSubmit} className="factoryForm">
       <div className="factoryInput__container">

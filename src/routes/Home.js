@@ -2,10 +2,17 @@ import React, { useEffect, useState } from "react";
 import { dbService } from "fbase";
 import Hanzul from "components/Hanzul";
 import HanzulFactory from "components/HanzulFactory";
+import MySearchBar from 'components/MySearchBar';
+import firebase from "firebase";
+
+
 
 const Home = ({ userObj }) => {
 
   const [hanzuls, setHanzuls] = useState([]);
+
+
+  //const [searchItems] = useState([]);
 
   useEffect(() => {
     dbService
@@ -23,6 +30,9 @@ const Home = ({ userObj }) => {
   
   return (
     <div className="container">
+      
+
+
       <HanzulFactory userObj={userObj} />
       <div style={{ marginTop: 30 }}>
         {hanzuls.map((hanzul) => (
