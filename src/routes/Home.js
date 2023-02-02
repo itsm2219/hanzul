@@ -20,7 +20,7 @@ const Home = ({ userObj }) => {
     });
   }, []);
 
-
+  
   return (
     <div className="container">
       <HanzulFactory userObj={userObj} />

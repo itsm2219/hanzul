@@ -1,7 +1,8 @@
-import React from "react";
-import { authService } from "fbase";
+import React, { useEffect } from "react";
+import { authService, dbService } from "fbase";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import Hanzul from "components/Hanzul";
 
 const Profile = ({ userObj, refreshUser }) => {
   const history = useHistory();
@@ -11,6 +12,24 @@ const Profile = ({ userObj, refreshUser }) => {
     authService.signOut();
     history.push("/");
   };
+
+  const [myHanzuls, setMyHanzuls] = useState([]);
+
+  useEffect(() => {
+    dbService
+    .collection("hanzuls")
+    .orderBy("createdAt", "desc")
+    .where("creatorId", "==", userObj.uid)
+    .onSnapshot((snapshot) => {
+      const hanzulArray = snapshot.docs.map((document) => ({
+        id: document.id,
+        ...document.data(),
+      }));
+      setMyHanzuls(hanzulArray);
+    });
+  }, []);
+
+
 
   const onChange = (event) => {
     const {
@@ -50,6 +69,19 @@ const Profile = ({ userObj, refreshUser }) => {
       <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
         로그아웃
       </span>
+
+
+      <div style={{ marginTop: 30 }}>
+        {myHanzuls.map((hanzul) => (
+          <Hanzul 
+          key={hanzul.id} 
+          hanzulObj={hanzul}
+          isOwner={hanzul.creatorId === userObj.uid}
+          />
+            ))}
+            </div>
+
+
     </div>
   );
 };
