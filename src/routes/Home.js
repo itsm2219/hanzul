@@ -2,17 +2,13 @@ import React, { useEffect, useState } from "react";
 import { dbService } from "fbase";
 import Hanzul from "components/Hanzul";
 import HanzulFactory from "components/HanzulFactory";
-import MySearchBar from 'components/MySearchBar';
-import firebase from "firebase";
-
-
 
 const Home = ({ userObj }) => {
 
   const [hanzuls, setHanzuls] = useState([]);
 
+  const[search, setSearch] = useState("");
 
-  //const [searchItems] = useState([]);
 
   useEffect(() => {
     dbService
@@ -27,11 +23,22 @@ const Home = ({ userObj }) => {
     });
   }, []);
 
-  
+  const searchHanzul=(e)=>{
+    e.preventDefault();
+    setHanzuls(hanzuls.filter((hanzul)=>
+    hanzul.text.toLowerCase().includes(search.toLowerCase())
+    ));
+  };
+
+
   return (
     <div className="container">
-      
 
+      <form onSubmit={(e)=>{searchHanzul(e)}}>
+        <input onChange={(e)=>{setSearch(e.target.value)}} placeholder="한줄 검색"/>
+        <button type="submit">찾기</button>
+      </form>
+   
 
       <HanzulFactory userObj={userObj} />
       <div style={{ marginTop: 30 }}>
